@@ -1,3 +1,3 @@
 
 from .gen import *
-from .cli import *
+from .cmd import *
