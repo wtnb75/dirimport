@@ -29,22 +29,22 @@ then, all symbols will be accessible after import.
 example:
 
 - layout
-  - symbol1 in dir/file1.py
-  - symbol2 in dir/file2.py
-  - symbol3 in dir/pkg/file1.py
+  - symbol1 in dir1/file1.py
+  - symbol2 in dir1/file2.py
+  - symbol3 in dir1/pkg/file1.py
 - import
-  - `import dir` with generated __init__.py
-  - or `dir = dirimport.importall("dir")` without __init__.py
+  - `import dir1` with generated __init__.py
+  - or `dir1 = dirimport.importall("dir1")` without __init__.py
 - result
-  - symbol1 -> `dir.symbol1`
-  - symbol2 -> `dir.symbol2`
-  - symbol3 -> `dir.pkg.symbol2`
+  - symbol1 -> `dir1.symbol1`
+  - symbol2 -> `dir1.symbol2`
+  - symbol3 -> `dir1.pkg.symbol2`
 
 ## CLI tools
 
 ```
-# ./bin/dirimport-cli
-Usage: dirimport-cli [OPTIONS] COMMAND [ARGS]...
+# ./bin/dirimport
+Usage: dirimport [OPTIONS] COMMAND [ARGS]...
 
 Options:
   --help  Show this message and exit.
@@ -56,11 +56,11 @@ Commands:
 ```
 
 - diff __init__.py
-  - ./bin/dirimport-cli diff your-library-dir
+  - ./bin/dirimport diff your-library-dir
 - evaluate expression
-  - ./bin/dirimport-cli eval your-library-dir 'expression'
+  - ./bin/dirimport eval your-library-dir 'expression'
 - generate __init__.py
-  - ./bin/dirimport-cli generate your-library-dir
+  - ./bin/dirimport generate your-library-dir
 
 ## examples
 
