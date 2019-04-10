@@ -55,11 +55,11 @@ Commands:
   generate
 ```
 
-- diff __init__.py
+- diff `__init__.py`
   - ./bin/dirimport diff your-library-dir
-- evaluate expression
+- import and evaluate expression
   - ./bin/dirimport eval your-library-dir 'expression'
-- generate __init__.py
+- generate `__init__.py`
   - ./bin/dirimport generate your-library-dir
 
 ## examples
