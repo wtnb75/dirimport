@@ -21,7 +21,7 @@ from .{{f}} import *
 def dig(dirname):
     resd = {}
     resf = []
-    for f in os.listdir(dirname):
+    for f in sorted(os.listdir(dirname)):
         if f.startswith("_") or f.startswith("."):
             continue
         fpath = os.path.join(dirname, f)
@@ -39,7 +39,7 @@ def generate(data, basename, filename="__init__.py"):
     dirs, files = data
     ofn = os.path.join(basename, filename)
     with open(ofn, "w") as ofp:
-        print(tmpl.render(dirs=dirs.keys(), files=files), file=ofp)
+        print(tmpl.render(dirs=dirs.keys(), files=files).strip(), file=ofp)
     for k, v in dirs.items():
         generate(v, os.path.join(basename, k), filename)
 

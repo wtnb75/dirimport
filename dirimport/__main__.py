@@ -2,7 +2,7 @@ import os
 import click
 from . import gen
 
-VERSION = "0.0.1"
+VERSION = "0.0.2"
 
 
 @click.group(invoke_without_command=True)
