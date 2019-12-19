@@ -65,3 +65,9 @@ Commands:
 ## examples
 
 - [ex1](examples/ex1.ipynb)
+
+# Links
+
+- [pypi](https://pypi.org/project/dirimport/)
+- [coverage](https://wtnb75.github.io/dirimport/)
+- [local pypi repo](https://wtnb75.github.io/dirimport/dist/)
