@@ -1,11 +1,11 @@
 import os
 import click
 from . import gen
-
-VERSION = "0.0.2"
+from ._version import VERSION
 
 
 @click.group(invoke_without_command=True)
+@click.version_option(VERSION)
 @click.pass_context
 def cli(ctx):
     if ctx.invoked_subcommand is None:
