@@ -20,7 +20,7 @@ class Test1(unittest.TestCase):
             print('print("hello aaa")', file=tmpfp)
 
     def test_dig(self):
-        with tempfile.TemporaryDirectory() as tmpd:
+        with tempfile.TemporaryDirectory(dir=".") as tmpd:
             self.gendir(tmpd)
             resd, resf = gen.dig(tmpd)
             self.assertEquals(["xxx", "yyy"], resf, "files")
@@ -39,7 +39,7 @@ class Test1(unittest.TestCase):
             self.assertEquals(1, len(resd), "dirs")
 
     def test_gen(self):
-        with tempfile.TemporaryDirectory() as tmpd:
+        with tempfile.TemporaryDirectory(dir=".") as tmpd:
             self.gendir(tmpd)
             gen.generate(gen.dig(tmpd), tmpd)
             with open(os.path.join(tmpd, "__init__.py")) as tmpfp:
@@ -66,7 +66,7 @@ class Test1(unittest.TestCase):
                 self.assertIn("xyz", s, "xyz")
 
     def test_clear(self):
-        with tempfile.TemporaryDirectory() as tmpd:
+        with tempfile.TemporaryDirectory(dir=".") as tmpd:
             self.gendir(tmpd)
             gen.generate(gen.dig(tmpd), tmpd)
             gen.clear(tmpd)
@@ -74,7 +74,7 @@ class Test1(unittest.TestCase):
                 os.path.join(tmpd, "__init__.py")), "initpy")
 
     def test_importall1(self):
-        with tempfile.TemporaryDirectory() as tmpd:
+        with tempfile.TemporaryDirectory(dir=".") as tmpd:
             self.gendir(tmpd)
             mod = gen.importall(tmpd)
             self.assertTrue(isinstance(mod, types.ModuleType), "module")
@@ -84,7 +84,7 @@ class Test1(unittest.TestCase):
             self.assertFalse(getattr(mod, "b"), "false")
 
     def test_importall2(self):
-        with tempfile.TemporaryDirectory() as tmpd:
+        with tempfile.TemporaryDirectory(dir=".") as tmpd:
             self.gendir(tmpd)
             with open(os.path.join(tmpd, "zzz.py"), "w") as tmpfp:
                 print('print("hello zzz")', file=tmpfp)
@@ -101,7 +101,7 @@ class Test1(unittest.TestCase):
             self.assertTrue(getattr(getattr(mod, "hello"), "d"), "true")
 
     def test_diff(self):
-        with tempfile.TemporaryDirectory() as tmpd:
+        with tempfile.TemporaryDirectory(dir=".") as tmpd:
             self.gendir(tmpd)
             with open(os.path.join(tmpd, "__init__.py"), "w") as tmpfp:
                 print("from .xyz import *", file=tmpfp)
