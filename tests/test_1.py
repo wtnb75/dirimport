@@ -82,6 +82,7 @@ class Test1(unittest.TestCase):
             self.assertFalse(hasattr(mod, "c"), "c does not exists")
             self.assertTrue(getattr(mod, "a"), "true")
             self.assertFalse(getattr(mod, "b"), "false")
+            del mod
 
             with open(os.path.join(tmpd, "zzz.py"), "w") as tmpfp:
                 print('print("hello zzz")', file=tmpfp)
