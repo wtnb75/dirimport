@@ -10,10 +10,10 @@ log = getLogger(__name__)
 
 tmpl = Template("""
 {%- for d in dirs %}
-from . import {{d}}
+from . import {{d}}  # noqa
 {%- endfor %}
 {%- for f in files %}
-from .{{f}} import *
+from .{{f}} import *  # noqa
 {%- endfor %}
 """)
 
