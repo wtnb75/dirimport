@@ -83,8 +83,8 @@ class Test1(unittest.TestCase):
             self.assertTrue(getattr(mod, "a"), "true")
             self.assertFalse(getattr(mod, "b"), "false")
 
-            with open(os.path.join(tmpd, "yyy2.py"), "w") as tmpfp:
-                print('print("hello yyy2")', file=tmpfp)
+            with open(os.path.join(tmpd, "zzz.py"), "w") as tmpfp:
+                print('print("hello zzz")', file=tmpfp)
                 print("b = True", file=tmpfp)
             os.mkdir(os.path.join(tmpd, "hello"))
             os.mkdir(os.path.join(tmpd, "world"))
