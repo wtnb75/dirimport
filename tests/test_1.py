@@ -8,16 +8,16 @@ from dirimport import gen
 class Test1(unittest.TestCase):
     def gendir(self, tmpd):
         with open(os.path.join(tmpd, "xxx.py"), "w") as tmpfp:
-            print('print("hello world")', file=tmpfp)
+            print('print("hello xxx")', file=tmpfp)
             print("a = True", file=tmpfp)
         with open(os.path.join(tmpd, "yyy.py"), "w") as tmpfp:
-            print('print("hello world")', file=tmpfp)
+            print('print("hello yyy")', file=tmpfp)
             print("b = False", file=tmpfp)
         with open(os.path.join(tmpd, "_zzz.py"), "w") as tmpfp:
-            print('print("hello world")', file=tmpfp)
+            print('print("hello zzz")', file=tmpfp)
             print("c = False", file=tmpfp)
         with open(os.path.join(tmpd, ".aaaa.py"), "w") as tmpfp:
-            print('print("hello world")', file=tmpfp)
+            print('print("hello aaa")', file=tmpfp)
 
     def test_dig(self):
         with tempfile.TemporaryDirectory() as tmpd:
@@ -33,7 +33,7 @@ class Test1(unittest.TestCase):
             self.assertEquals(0, len(resd), "dirs")
 
             with open(os.path.join(tmpd, "hello", "xyz.py"), "w") as tmpfp:
-                print('print("hello world")', file=tmpfp)
+                print('print("hello xyz")', file=tmpfp)
             resd, resf = gen.dig(tmpd)
             self.assertEquals(["xxx", "yyy"], resf, "files")
             self.assertEquals(1, len(resd), "dirs")
@@ -51,7 +51,7 @@ class Test1(unittest.TestCase):
             os.mkdir(os.path.join(tmpd, "hello"))
             os.mkdir(os.path.join(tmpd, "world"))
             with open(os.path.join(tmpd, "hello", "xyz.py"), "w") as tmpfp:
-                print('print("hello world")', file=tmpfp)
+                print('print("hello xyz")', file=tmpfp)
             gen.generate(gen.dig(tmpd), tmpd, "initinit.py")
             with open(os.path.join(tmpd, "initinit.py")) as tmpfp:
                 s = tmpfp.read()
@@ -84,11 +84,12 @@ class Test1(unittest.TestCase):
             self.assertFalse(getattr(mod, "b"), "false")
 
             with open(os.path.join(tmpd, "yyy2.py"), "w") as tmpfp:
+                print('print("hello yyy2")', file=tmpfp)
                 print("b = True", file=tmpfp)
             os.mkdir(os.path.join(tmpd, "hello"))
             os.mkdir(os.path.join(tmpd, "world"))
             with open(os.path.join(tmpd, "hello", "xyz.py"), "w") as tmpfp:
-                print('print("hello world")', file=tmpfp)
+                print('print("hello xyz")', file=tmpfp)
                 print("d = True", file=tmpfp)
 
             mod = gen.importall(tmpd)
