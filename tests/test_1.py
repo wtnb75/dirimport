@@ -73,7 +73,7 @@ class Test1(unittest.TestCase):
             self.assertFalse(os.path.exists(
                 os.path.join(tmpd, "__init__.py")), "initpy")
 
-    def test_importall(self):
+    def test_importall1(self):
         with tempfile.TemporaryDirectory() as tmpd:
             self.gendir(tmpd)
             mod = gen.importall(tmpd)
@@ -82,8 +82,10 @@ class Test1(unittest.TestCase):
             self.assertFalse(hasattr(mod, "c"), "c does not exists")
             self.assertTrue(getattr(mod, "a"), "true")
             self.assertFalse(getattr(mod, "b"), "false")
-            del mod
 
+    def test_importall2(self):
+        with tempfile.TemporaryDirectory() as tmpd:
+            self.gendir(tmpd)
             with open(os.path.join(tmpd, "zzz.py"), "w") as tmpfp:
                 print('print("hello zzz")', file=tmpfp)
                 print("b = True", file=tmpfp)
