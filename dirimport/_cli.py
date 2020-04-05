@@ -29,6 +29,13 @@ def generatecmd(path, filename):
     gen.generate(data, path, filename)
 
 
+@cli.command()
+@click.argument("path", type=click.Path(exists=True, dir_okay=True, file_okay=False))
+def dig(path):
+    data = gen.dig(path)
+    print(data)
+
+
 @cli.command("eval")
 @click.argument("path", type=click.Path(exists=True, dir_okay=True, file_okay=False))
 @click.argument("expr")

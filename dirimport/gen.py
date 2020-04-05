@@ -38,6 +38,8 @@ def dig(dirname):
 def generate(data, basename, filename="__init__.py"):
     dirs, files = data
     ofn = os.path.join(basename, filename)
+    if len(dirs) == 0 and len(files) == 0:
+        return
     with open(ofn, "w") as ofp:
         print(tmpl.render(dirs=dirs.keys(), files=files).strip(), file=ofp)
     for k, v in dirs.items():
