@@ -15,7 +15,7 @@ jobs:
     - name: Build image
       run: |
         BRANCH_TAG=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-        docker build docker --tag $IMAGE_NAME --build-args tag=$BRANCH_TAG
+        docker build docker --tag $IMAGE_NAME --build-arg tag=$BRANCH_TAG
     - name: login
       run: echo "${{ secrets.CR_PAT }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
     - name: push
