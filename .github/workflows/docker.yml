@@ -3,6 +3,8 @@ name: docker
 on:
   push:
     branches-ignore: [gh-pages]
+    branches:
+    - $default-branch
     tags:
     - v*
 env:
