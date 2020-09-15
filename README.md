@@ -62,6 +62,10 @@ Commands:
 - generate `__init__.py`
   - ./bin/dirimport generate your-library-dir
 
+## Use CLI command from docker
+
+- docker run -v $PWD:/w -w /w ghcr.io/wtnb75/dirimport dirimport --help
+
 ## examples
 
 - [ex1](examples/ex1.ipynb)
