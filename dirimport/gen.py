@@ -1,10 +1,11 @@
+import difflib
+import importlib
 import os
 import sys
 import types
-import difflib
-import importlib
-from jinja2 import Template
 from logging import getLogger
+
+from jinja2 import Template
 
 log = getLogger(__name__)
 
@@ -22,7 +23,7 @@ def dig(dirname):
     resd = {}
     resf = []
     for f in sorted(os.listdir(dirname)):
-        if f.startswith("_") or f.startswith("."):
+        if f.startswith(("_", ".")):
             continue
         fpath = os.path.join(dirname, f)
         if os.path.isdir(fpath):
@@ -50,14 +51,13 @@ def diff(data, basename, filename="__init__.py"):
     dirs, files = data
     ofn = os.path.join(basename, filename)
     if os.path.exists(ofn):
-        orig = list(filter(lambda f: f != "", map(
-            lambda f: f.strip(), open(ofn).readlines())))
+        with open(ofn) as ofp:
+            orig = [line for line in (raw.strip() for raw in ofp) if line != ""]
     else:
         orig = []
     newtxt = tmpl.render(dirs=dirs.keys(), files=files)
     newdata = list(filter(lambda f: f.strip() != "", newtxt.split("\n")))
-    res = list(difflib.unified_diff(orig, newdata,
-                                    fromfile=ofn + ".orig", tofile=ofn))
+    res = list(difflib.unified_diff(orig, newdata, fromfile=ofn + ".orig", tofile=ofn))
     for k, v in dirs.items():
         res.extend(diff(v, os.path.join(basename, k), filename))
     return res

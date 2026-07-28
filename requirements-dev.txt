@@ -1,5 +1,0 @@
-wheel
-nose
-twine
-coverage
-pip2pi
