@@ -1,0 +1,56 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "dirimport"
+dynamic = ["version"]
+description = "import your library without __init__.py"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+authors = [
+    { name = "Watanabe Takashi", email = "wtnb75@gmail.com" },
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "Jinja2",
+    "Click",
+]
+
+[project.scripts]
+dirimport = "dirimport._cli:cli"
+
+[project.urls]
+Homepage = "https://github.com/wtnb75/dirimport"
+
+[tool.hatch.version]
+path = "dirimport/_version.py"
+pattern = "VERSION = ['\"](?P<version>[^'\"]+)['\"]"
+
+[tool.hatch.build.targets.wheel]
+packages = ["dirimport"]
+
+[tool.ruff]
+extend-exclude = ["examples"]
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "pytest-cov",
+    "pytest-github-actions-annotate-failures",
+    "ruff",
+    "pdoc",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["."]
+python_files = ["test_*.py"]
+addopts = "--cov-report=html:cover --cov-report=term --cov-branch --cov-reset --cov=dirimport --doctest-modules"
+norecursedirs = ["examples"]

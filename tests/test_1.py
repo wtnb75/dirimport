@@ -1,7 +1,8 @@
-import unittest
 import os
-import types
 import tempfile
+import types
+import unittest
+
 from dirimport import gen
 
 
@@ -23,20 +24,20 @@ class Test1(unittest.TestCase):
         with tempfile.TemporaryDirectory(dir=".") as tmpd:
             self.gendir(tmpd)
             resd, resf = gen.dig(tmpd)
-            self.assertEquals(["xxx", "yyy"], resf, "files")
-            self.assertEquals(0, len(resd), "dirs")
+            self.assertEqual(["xxx", "yyy"], resf, "files")
+            self.assertEqual(0, len(resd), "dirs")
 
             os.mkdir(os.path.join(tmpd, "hello"))
             os.mkdir(os.path.join(tmpd, "world"))
             resd, resf = gen.dig(tmpd)
-            self.assertEquals(["xxx", "yyy"], resf, "files")
-            self.assertEquals(0, len(resd), "dirs")
+            self.assertEqual(["xxx", "yyy"], resf, "files")
+            self.assertEqual(0, len(resd), "dirs")
 
             with open(os.path.join(tmpd, "hello", "xyz.py"), "w") as tmpfp:
                 print('print("hello xyz")', file=tmpfp)
             resd, resf = gen.dig(tmpd)
-            self.assertEquals(["xxx", "yyy"], resf, "files")
-            self.assertEquals(1, len(resd), "dirs")
+            self.assertEqual(["xxx", "yyy"], resf, "files")
+            self.assertEqual(1, len(resd), "dirs")
 
     def test_gen(self):
         with tempfile.TemporaryDirectory(dir=".") as tmpd:
@@ -70,8 +71,9 @@ class Test1(unittest.TestCase):
             self.gendir(tmpd)
             gen.generate(gen.dig(tmpd), tmpd)
             gen.clear(tmpd)
-            self.assertFalse(os.path.exists(
-                os.path.join(tmpd, "__init__.py")), "initpy")
+            self.assertFalse(
+                os.path.exists(os.path.join(tmpd, "__init__.py")), "initpy"
+            )
 
     def test_importall1(self):
         with tempfile.TemporaryDirectory(dir=".") as tmpd:
@@ -80,8 +82,8 @@ class Test1(unittest.TestCase):
             self.assertTrue(isinstance(mod, types.ModuleType), "module")
             self.assertTrue(hasattr(mod, "a"), "a exists")
             self.assertFalse(hasattr(mod, "c"), "c does not exists")
-            self.assertTrue(getattr(mod, "a"), "true")
-            self.assertFalse(getattr(mod, "b"), "false")
+            self.assertTrue(mod.a, "true")
+            self.assertFalse(mod.b, "false")
 
     @unittest.skip("?!")
     def test_importall2(self):
@@ -99,7 +101,7 @@ class Test1(unittest.TestCase):
             mod = gen.importall(tmpd)
             self.assertTrue(hasattr(mod, "hello"), "hello exists")
             self.assertFalse(hasattr(mod, "world"), "world does not exists")
-            self.assertTrue(getattr(getattr(mod, "hello"), "d"), "true")
+            self.assertTrue(mod.hello.d, "true")
 
     def test_diff(self):
         with tempfile.TemporaryDirectory(dir=".") as tmpd:
@@ -116,4 +118,4 @@ class Test1(unittest.TestCase):
 
             gen.generate(gen.dig(tmpd), tmpd)
             diff = gen.diff(gen.dig(tmpd), tmpd)
-            self.assertEquals(0, len(diff), "generated")
+            self.assertEqual(0, len(diff), "generated")

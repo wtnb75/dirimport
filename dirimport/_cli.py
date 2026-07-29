@@ -1,5 +1,7 @@
 import os
+
 import click
+
 from . import gen
 from ._version import VERSION
 
@@ -17,8 +19,7 @@ def cli(ctx):
 @click.option("--filename", default="__init__.py")
 def diffcmd(path, filename):
     data = gen.dig(path)
-    click.echo(
-        "\n".join(map(lambda f: f.rstrip(), gen.diff(data, path, filename))))
+    click.echo("\n".join(f.rstrip() for f in gen.diff(data, path, filename)))
 
 
 @cli.command("generate")
